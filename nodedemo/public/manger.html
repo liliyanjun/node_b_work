@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>后台管理</title>
+	<script src="javascripts/jquery-2.1.4.min.js"></script>
+	<style>
+		.news{
+			
+		}
+	</style>
+</head>
+<body>
+	<div class="news">
+		<h2>信息录入</h2>
+		标题：<input type="text" placeholder="标题" id="tit" />
+		内容：<textarea name="mes" cols="30" rows="10"id="content"></textarea>
+		提交人:<input type="text" placeholder="姓名" id="name"/>
+		<input type="submit" id="sub" ></input>
+	</div>
+	<div id="xin">
+
+	</div>
+	<script>
+		$("#sub").click(function(){
+			console.log(1)
+			$.ajax({
+				type:"post",
+				url:"http://localhost:8005/text/news",
+				dataType:"json",
+				data:{
+					"title":$('#tit').val(),
+					"content":$('#content').val(),
+					"username":$("#name").val()
+				},
+				success:function(data){
+					console.log(提交成功);
+				}
+			})
+		})
+
+		$.ajax({
+			url:"http://localhost:8005/text/xin",
+			type:"post",
+			dataType:'json',
+			success:function(data){
+				console.log(data)
+				var html = '';
+				for(var i=0;i<data.length;i++){
+					html+="<h1>"+data[i].title+"</h1></br><p>"+data[i].content+"</p><a href=details.html?id="+data[i].id+">详情</a><a class=del href='javascript:;' id="+data[i].id+">删除</a>";							
+				}
+				$('#xin').append(html);
+				$('.del').click(function(){
+					// alert(1)
+					var id = $(this).attr('id');
+					console.log(2)
+					$.ajax({
+						url:"http://localhost:8005/text/delete",
+						type:"post",
+						data:{"id":id},
+						success:function(data2){
+							console.log(data2.id)
+							window.reload;							
+						}
+					})
+				})					
+			}
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>留言板</title>
+	<script src="javascripts/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+	<h2>投诉界面</h2>
+	<div>
+		<ul id="xin">
+			
+		</ul>	
+	</div>
+	<textarea name="mes" id="message" cols="30" rows="10"></textarea>
+	<input type="phone" value="" placeholder="手机号" id="phone"/>
+	<input type="text" value"" placeholder="用户名" id="uname" />
+	<input type="submit" value="提交" id="sub">
+	<div id="mes_box">
+		
+	</div>
+	<script>				
+		$("#sub").click(function(){
+			$.ajax({
+				url:"http://localhost:8005/text/tousu",
+				type:"post",
+				data:{'content':$('#message').val(),'tel':$('#phone').val(),'name':$('#uname').val()},
+				dataType:"json",
+				success:function(data2){
+//					alert('登录成功');
+//					document.location.reload()
+					alert('投诉成功');
+				},
+				error:function(){
+					alert('登录失败');
+				}
+			})
+		})
+	</script>
+</body>
+</html>

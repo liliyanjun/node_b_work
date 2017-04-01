@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>详情界面</title>
+	<script src="javascripts/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+	<h2>详情界面</h2>
+	<div id="content">
+	
+	</div>
+	<script>				
+		var str = window.location.href.split("=")[1];
+		$.ajax({
+			url:"http://localhost:8005/text/text?id="+str,
+			type:"get",
+			dataType:"json",
+			success:function(res){
+				console.log(str);
+				var html='';
+				html+='<p>'+res[0].content+'</p>';
+				$('#content').append(html);
+			},
+			error:function(){
+				alert('登录失败');
+			}
+		})		
+	</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>ajax</title>
+		<script src="javascripts/jquery-2.1.4.min.js"></script>
+		<style>
+			*{
+				padding：0；
+				margin： 0；
+			}
+			.l_box{
+				width: 900px;
+				height: 500px;
+				border: 1px solid #ccc;
+				margin: 0 auto;
+				text-align: right;
+				float:left;
+			}
+			input{
+				margin-top: 15px;
+			}
+		</style>
+	<head>
+	<body>
+		<div class="l_box">
+			用户名：<input type="text" id="l_uname"><br>
+			密码： <input type="password" id="l_pwd"><br>			
+			<button id="login_btn">登录</button>
+		</div>
+		<script>
+			$('#login_btn').click(function(){
+				$.ajax({
+					type:"post",
+					url:"http://localhost:8005/text/denglu",
+					data:{'uname':$('#l_uname').val(),'pwd':$('#l_pwd').val()},
+					dataType:"json",
+					success:function(data){
+//						window.onload.herf = "index.html";
+						if(data.flag == 1){
+							window.location.href= "b_index.html"; 
+						}if(data.flag == 2){
+							alert("用户名不存在")
+						}if(data.flag == 3){
+							alert("您输入的密码有误")
+						}
+					},
+					error:function(){
+						alert('登录失败')
+					}
+				})
+			})
+		</script>
+	</body>
+<html>

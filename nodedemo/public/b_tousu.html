@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>留言板</title>
+	<script src="javascripts/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+	<h2>留言界面</h2>
+	<div>
+		<ul id="xin">
+			
+		</ul>
+		
+	</div>
+	<script>				
+		$.ajax({
+			url:"http://localhost:8005/text/tou",
+			type:"post",
+			dataType:"json",
+			success:function(res){
+				var html='';
+				for(var i=0;i<res.length;i++){
+					html+='<p>'+res[i].content+'<span style="margin-left: 89px;">'+res[i].tel+'</span><span>'+res[i].name+'</span></p>';
+				}
+				$('#xin').append(html);
+			},
+			error:function(){
+				alert('登录失败');
+			}
+		})
+		
+	</script>
+</body>

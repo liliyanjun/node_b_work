@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>宋氏集团</title>
+		<script src=" javascripts/jquery-2.1.4.min.js"></script>
+		<style>
+			.news{
+				width: 500px;
+				height: auto;
+				overflow:auto;
+			}
+			#xin{
+				height: 200px;
+				overflow:auto;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>宋氏集团</h2>
+		<div class="news">
+			<h4>最热新闻</h4>
+			<ul id="xin">
+			
+			</ul>
+		</div>
+		<div class="main">
+			<button class="bth_one"><a href="tousu.html">我要投诉</a></button>
+			<button class="bth_two"><a href="mes.html">我要留言</a></button>
+		</div>
+		<script>
+			$.ajax({
+				url:"http://localhost:8005/text/xin",
+				type:"post",
+				dataType:'json',
+				success:function(data){
+					console.log(data)
+					var html = '';
+					for(var i=0;i<data.length;i++){
+						var d = data[i].date.split("T")[0];
+						html+="<li><a href=details.html?id="+data[i].id+">"+data[i].title+"</a><span>"+d+"</span></li>";							
+					}
+					$('#xin').append(html);	
+					$('.del').click(function(){
+						var id = $(this).attr('id');
+						console.log(id)
+						$.ajax({
+							url:"http://localhost:8005/text/delete",
+							type:"post",
+							data:{"id":id},
+							success:function(data3){
+								window.reload;							
+							}
+						})
+					})
+				}
+			})
+		</script>
+	</body>
+</html>

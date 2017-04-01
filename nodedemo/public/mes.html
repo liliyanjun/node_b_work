@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>留言板</title>
+	<script src="javascripts/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+	<h2>留言界面</h2>
+	<div>
+		<ul id="xin">
+			
+		</ul>
+		
+	</div>
+	<textarea name="mes" id="message" cols="30" rows="10"></textarea>
+	<input type="phone" value="" placeholder="手机号" id="phone"/>
+	<input type="text" value"" placeholder="用户名" id="uname" />
+	<input type="submit" value="提交" id="sub">
+	<div id="mes_box">
+		
+	</div>
+	<script>				
+//		$.ajax({
+//			url:"http://localhost:8005/text/mes",
+//			type:"post",
+//			dataType:"json",
+//			success:function(res){
+//				var html='';
+//				for(var i=0;i<res.length;i++){
+//					html+='<p>'+res[i].message+'<span style="margin-left: 89px;">'+res[i].phone+'</span></p>';
+//				}
+//				$('#mes_box').append(html);
+//			},
+//			error:function(){
+//				alert('登录失败');
+//			}
+//		})
+		
+		// $.ajax({
+		// 	url:"http://localhost:8005/text/xin",
+		// 	type:"post",
+		// 	dataType:"json",
+		// 	success:function(data2){
+		// 		var Ahtml='';
+		// 		for(var i=0;i<data2.length;i++){
+		// 			Ahtml+='<li><a href="detail.html?id='+data2[i].id+'">'+data2[i].title+'</a><span style="margin-left:50px;">'+data2[i].date+'</span></li>';
+		// 		}
+		// 		$('#xin').append(Ahtml);
+		// 	},
+		// 	error:function(){
+		// 		alert('登录失败');
+		// 	}
+		// })
+		
+//		$.ajax({
+//			url:"http://localhost:8005/text/xin",
+//			type:"post",
+//			dataType:'json',
+//			success:function(data){
+//				console.log(data)
+//				var html = '';
+//				for(var i=0;i<data.length;i++){
+//					html+="<h1>"+data[i].title+"</h1></br><p>"+data[i].content+"</p><a href=details.html?id="+data[i].id+">详情</a><a href=xiugai.html?id="+data[i].id+">修改</a><a class=del href='javascript:;' id="+data[i].id+">删除</a>";							
+//				}
+//				$('#xin').append(html);					
+//			}
+//		})
+
+		$("#sub").click(function(){
+			$.ajax({
+				url:"http://192.168.9.182:82/text/upload",
+				type:"post",
+				data:{'message':$('#message').val(),'phone':$('#phone').val(),'uname':$('#uname').val()},
+				dataType:"json",
+				
+				success:function(data2){
+//					alert('登录成功');
+					document.location.reload()
+				},
+				error:function(){
+					alert('登录失败');
+				}
+			})
+		})
+	</script>
+</body>
+</html>
